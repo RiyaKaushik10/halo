@@ -1,0 +1,19 @@
+halo (1.0.1) noble; urgency=medium
+
+  * Fix: buttons, checkboxes and radio buttons inside dialogs didn't respond
+    to clicks (the dimmed backdrop was swallowing them).
+  * Fix: press-and-hold to shred stopped filling after a moment.
+  * Fix: the last row (Shred…) of the right-click menu could be cut off.
+  * Dialogs now have a close button; Esc still closes them.
+  * The SSD warning is now off by default (Preferences › Shredding).
+
+ -- Riya K <riyak1@proton.me>  Sat, 24 Oct 2026 18:00:00 +0000
+
+halo (1.0.0) noble; urgency=medium
+
+  * First release: sunburst disk analyzer with Outline, Biggest and Oldest
+    lists, and a secure shredder (DoD 5220.22-M 3-pass method or a single
+    random pass, verified) that also removes thumbnails, recent-file entries
+    and Trash copies.
+
+ -- Riya K <riyak1@proton.me>  Sat, 24 Oct 2026 12:00:00 +0000

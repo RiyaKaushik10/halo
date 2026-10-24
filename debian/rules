@@ -1,0 +1,15 @@
+#!/usr/bin/make -f
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Riya K
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	$(MAKE) version
+
+override_dh_auto_install:
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/halo PREFIX=/usr
+
+# The GUI test suite needs a display; CI runs it under xvfb-run and unshare -rn.
+override_dh_auto_test:
