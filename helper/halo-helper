@@ -1,0 +1,133 @@
+#!/usr/bin/python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Riya K
+"""Halo's privileged helper, started only through pkexec.
+
+    halo-helper scan <path>
+    halo-helper shred [--method dod3|random1] [--no-verify] <path>...
+
+Prints JSON lines on stdout. Accepts only absolute paths, re-applies the
+protected-path and no-symlink rules on its own, never runs a shell and
+refuses any argument it doesn't recognise. SIGTERM cancels.
+"""
+
+import json
+import os
+import pwd
+import signal
+import sys
+
+APP_DIR = "@APPDIR@" if not "@APPDIR@".startswith("@") else "/usr/share/halo"
+
+
+def die(msg, code=2):
+    sys.stdout.write(json.dumps({"type": "error", "message": msg}) + "\n")
+    sys.stdout.flush()
+    sys.exit(code)
+
+
+def setup_env():
+    # Run the safety rules against the *calling* user's home, not root's.
+    uid = os.environ.get("PKEXEC_UID")
+    if uid is not None:
+        try:
+            pw = pwd.getpwuid(int(uid))
+        except (KeyError, ValueError):
+            die("unknown calling user")
+        os.environ["HOME"] = pw.pw_dir
+    for var in ("XDG_CACHE_HOME", "XDG_CONFIG_HOME", "XDG_DATA_HOME", "XDG_STATE_HOME", "PYTHONPATH"):
+        os.environ.pop(var, None)
+    here = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    if os.path.isdir(os.path.join(APP_DIR, "halo")):
+        sys.path.insert(0, APP_DIR)
+    elif os.geteuid() != 0 and os.path.isdir(os.path.join(here, "halo")):
+        sys.path.insert(0, here)   # development checkout, never as root
+    else:
+        die("Halo is not installed")
+
+
+def check_path(p, allow_dir=True):
+    if not os.path.isabs(p) or "\0" in p:
+        die("only absolute paths are accepted")
+    norm = os.path.normpath(p)
+    if os.path.islink(norm):
+        die("symbolic links are refused")
+    # no symlinks anywhere in the parent chain either
+    if os.path.realpath(os.path.dirname(norm)) != os.path.dirname(norm):
+        die("paths through symbolic links are refused")
+    if not os.path.lexists(norm):
+        die("path does not exist")
+    from halo import safety
+    reason = safety.shred_block_reason(norm)
+    if reason:
+        die("protected: " + reason)
+    return norm
+
+
+def cmd_scan(args):
+    if len(args) != 1:
+        die("usage: halo-helper scan <path>")
+    p = args[0]
+    if not os.path.isabs(p) or os.path.islink(p) or not os.path.isdir(p):
+        die("scan needs an absolute folder path")
+    from halo import scanner
+    sc = scanner.Scanner(os.path.normpath(p), "disk")
+    signal.signal(signal.SIGTERM, lambda *a: sc.cancel())
+
+    def prog(res):
+        sys.stdout.write(json.dumps({"type": "progress", "files": res.files, "bytes": res.root.size}) + "\n")
+        sys.stdout.flush()
+    sc.on_progress = prog
+    res = sc.run_sync()
+    out = {"type": "result", "tree": scanner.node_to_list(res.root), "errors": res.errors[:5000],
+           "files": res.files, "dirs": res.dirs, "cancelled": res.cancelled,
+           "biggest": [list(r) for r in res.biggest], "oldest": [list(r) for r in res.oldest]}
+    sys.stdout.write(json.dumps(out, separators=(",", ":")) + "\n")
+    sys.stdout.flush()
+    return 0
+
+
+def cmd_shred(args):
+    method, verify, paths = "dod3", True, []
+    i = 0
+    while i < len(args):
+        a = args[i]
+        if a == "--method":
+            if i + 1 >= len(args) or args[i + 1] not in ("dod3", "random1"):
+                die("bad --method")
+            method = args[i + 1]
+            i += 2
+            continue
+        if a == "--no-verify":
+            verify = False
+        elif a == "--verify":
+            verify = True
+        elif a.startswith("-"):
+            die("unrecognised argument")
+        else:
+            paths.append(check_path(a))
+        i += 1
+    if not paths:
+        die("no paths")
+    from halo import shred
+    sh = shred.Shredder(method, verify, progress=lambda ev: (sys.stdout.write(json.dumps(ev) + "\n"),
+                                                             sys.stdout.flush()))
+    signal.signal(signal.SIGTERM, lambda *a: sh.cancel())
+    sh.run(paths)
+    return 0
+
+
+def main(argv):
+    setup_env()
+    if len(argv) < 2:
+        die("usage: halo-helper scan|shred ...")
+    cmd, rest = argv[1], argv[2:]
+    if cmd == "scan":
+        return cmd_scan(rest)
+    if cmd == "shred":
+        return cmd_shred(rest)
+    die("unknown command")
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
