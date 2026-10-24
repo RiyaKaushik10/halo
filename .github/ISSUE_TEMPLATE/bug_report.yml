@@ -1,0 +1,26 @@
+name: Bug report
+description: Something in Halo doesn't work as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! **Please don't paste private file names or paths** — use a made-up example like `~/Videos/holiday.mp4`.
+        Security problems? Email riyak1@proton.me instead of opening an issue.
+  - type: input
+    id: version
+    attributes: {label: Halo version, description: "Output of `halo --version`"}
+    validations: {required: true}
+  - type: dropdown
+    id: edition
+    attributes:
+      label: Linux Mint edition
+      options: [Cinnamon, MATE, Xfce, LMDE, Other]
+    validations: {required: true}
+  - type: dropdown
+    id: drive
+    attributes: {label: Drive type, options: [SSD, HDD, USB stick, "Don't know"]}
+  - type: textarea
+    id: what
+    attributes: {label: What happened, description: Steps to reproduce, and what you expected instead}
+    validations: {required: true}

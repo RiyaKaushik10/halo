@@ -1,0 +1,11 @@
+name: Feature request
+description: Suggest an idea for Halo
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: "Please don't paste private file names or paths. Halo will never add networking, analytics or accounts."
+  - type: textarea
+    id: idea
+    attributes: {label: Your idea, description: What would you like Halo to do, and why?}
+    validations: {required: true}
