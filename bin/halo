@@ -1,0 +1,7 @@
+#!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Riya K
+# Halo launcher: runs the app from /usr/share/halo with the system Python.
+HALO_DIR="@APPDIR@"
+export PYTHONPATH="$HALO_DIR${PYTHONPATH:+:$PYTHONPATH}"
+exec /usr/bin/python3 -m halo "$@"
