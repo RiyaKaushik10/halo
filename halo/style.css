@@ -1,0 +1,587 @@
+/* SPDX-License-Identifier: MIT
+ * Copyright (c) 2026 Riya K
+ *
+ * Halo's whole look. Colour tokens are defined once here and mirrored in
+ * theme.py for Cairo. Never hard-code a colour below — use the tokens.
+ */
+
+@define-color bg_window #0E1424;
+@define-color bg_sidebar #141B2E;
+@define-color bg_panel #18203A;
+@define-color bg_raised #1F2945;
+@define-color line #2A3557;
+@define-color text_primary #E8ECF6;
+@define-color text_secondary #9AA6C4;
+@define-color text_muted #6B7799;
+@define-color accent #4F8CFF;
+@define-color danger #FF5470;
+@define-color success #3DDC97;
+@define-color warning #FFB547;
+
+@define-color kind_0 #4F8CFF;
+@define-color kind_1 #2ED3B7;
+@define-color kind_2 #9B6BFF;
+@define-color kind_3 #FF8A3D;
+@define-color kind_4 #FFC93D;
+@define-color kind_5 #FF5FA2;
+@define-color kind_6 #7A88B0;
+
+/* ── Window & base ──────────────────────────────────────────────────────── */
+window.halo,
+window.halo-dialog {
+  background-color: @bg_window;
+  color: @text_primary;
+}
+
+window.halo label,
+window.halo-dialog label { color: @text_primary; }
+
+.tnum, .size, .counter { font-feature-settings: "tnum"; }
+
+.dim-label, label.secondary { color: @text_secondary; }
+label.muted { color: @text_muted; }
+label.caption { font-size: 13px; color: @text_secondary; }
+label.section {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: @text_muted;
+}
+label.title-20 { font-size: 20px; font-weight: 600; }
+label.row-name { font-size: 15px; }
+label.danger-text { color: @danger; }
+label.success-text { color: @success; }
+label.warning-text { color: @warning; }
+
+separator { background-color: @line; min-width: 1px; min-height: 1px; }
+
+/* ── Header bar & menu bar ──────────────────────────────────────────────── */
+headerbar.halo-header {
+  background: @bg_sidebar;
+  border-bottom: 1px solid @line;
+  box-shadow: none;
+  min-height: 48px;
+  padding: 0 10px;
+  color: @text_primary;
+}
+headerbar.halo-header:backdrop { background: @bg_sidebar; }
+headerbar.halo-header .app-name { font-size: 20px; font-weight: 600; }
+headerbar.halo-header windowcontrols button {
+  min-width: 22px; min-height: 22px; padding: 2px; margin: 0 2px;
+  border-radius: 99px; background: alpha(@text_primary, 0.06); color: @text_secondary;
+}
+headerbar.halo-header windowcontrols button:hover { background: alpha(@text_primary, 0.14); color: @text_primary; }
+headerbar.halo-header windowcontrols button.close:hover { background: @danger; color: @bg_window; }
+
+popovermenubar.halo-menubar {
+  background: @bg_sidebar;
+  border-bottom: 1px solid @line;
+  padding: 0 6px;
+  min-height: 28px;
+}
+popovermenubar.halo-menubar > item {
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: @text_secondary;
+  margin: 2px 0;
+}
+popovermenubar.halo-menubar > item:hover,
+popovermenubar.halo-menubar > item:selected {
+  background: @bg_raised;
+  color: @text_primary;
+}
+
+/* ── Popovers and menus ─────────────────────────────────────────────────── */
+popover > contents,
+popover.menu > contents {
+  background-color: @bg_panel;
+  color: @text_primary;
+  border: 1px solid @line;
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+popover > arrow { background-color: @bg_panel; border: 1px solid @line; }
+popover.menu modelbutton {
+  min-height: 30px;
+  padding: 2px 12px;
+  border-radius: 7px;
+  color: @text_primary;
+}
+popover.menu modelbutton:hover,
+popover.menu modelbutton:selected { background-color: @bg_raised; }
+popover.menu modelbutton:disabled,
+popover.menu modelbutton:disabled label { color: @text_muted; }
+popover.menu modelbutton accelerator { color: @text_muted; margin-left: 24px; }
+popover.menu separator { margin: 5px 4px; background-color: @line; }
+popover.menu arrow.right, popover.menu arrow.left { color: @text_muted; }
+popover.menu check, popover.menu radio {
+  border: 1px solid @line; background: @bg_window; min-width: 14px; min-height: 14px;
+}
+popover.menu check:checked, popover.menu radio:checked { background: @accent; border-color: @accent; color: white; }
+
+popover.menu modelbutton.group-start {
+  margin-top: 5px;
+  border-top: 1px solid @line;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding-top: 5px;
+  min-height: 34px;
+}
+popover.menu modelbutton.danger-item label { color: @danger; font-weight: 600; }
+popover.menu modelbutton.danger-item:hover { background-color: alpha(@danger, 0.14); }
+popover.menu modelbutton.danger-item:disabled label { color: alpha(@danger, 0.45); }
+popover.menu modelbutton.danger-item accelerator { color: alpha(@danger, 0.6); }
+
+button.menu-danger {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 7px;
+  min-height: 32px;
+  padding: 2px 12px;
+  color: @danger;
+}
+button.menu-danger label { color: @danger; font-weight: 600; }
+button.menu-danger image { color: @danger; }
+button.menu-danger:hover { background: alpha(@danger, 0.14); }
+button.menu-danger:disabled { opacity: 0.45; }
+.menu-reason { padding: 4px 12px 6px 12px; }
+.menu-reason label { color: @text_muted; font-size: 12px; }
+.menu-reason image { color: @warning; }
+
+tooltip {
+  background-color: @bg_raised;
+  color: @text_primary;
+  border: 1px solid @line;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+tooltip label { color: @text_primary; }
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+window.halo button,
+window.halo-dialog button {
+  background-image: none;
+  background-color: @bg_raised;
+  color: @text_primary;
+  border: 1px solid @line;
+  border-radius: 10px;
+  box-shadow: none;
+  text-shadow: none;
+  padding: 6px 14px;
+  min-height: 22px;
+  transition: background-color 150ms ease-out, border-color 150ms ease-out, opacity 150ms ease-out;
+}
+window.halo button:hover,
+window.halo-dialog button:hover { background-color: shade(@bg_raised, 1.18); border-color: shade(@line, 1.25); }
+window.halo button:active,
+window.halo-dialog button:active { background-color: shade(@bg_raised, 0.92); }
+window.halo button:disabled,
+window.halo-dialog button:disabled { opacity: 0.45; }
+window.halo button:focus-visible,
+window.halo-dialog button:focus-visible { outline: 2px solid @accent; outline-offset: 1px; }
+window.halo button label, window.halo-dialog button label { color: inherit; }
+
+window.halo button.flat,
+window.halo-dialog button.flat { background: transparent; border-color: transparent; }
+window.halo button.flat:hover,
+window.halo-dialog button.flat:hover { background: alpha(@text_primary, 0.07); }
+
+window.halo button.suggested,
+window.halo-dialog button.suggested {
+  background-color: @accent; border-color: @accent; color: white; font-weight: 600;
+}
+window.halo button.suggested:hover,
+window.halo-dialog button.suggested:hover { background-color: shade(@accent, 1.1); }
+
+window.halo button.danger,
+window.halo-dialog button.danger {
+  background-color: @danger; border-color: @danger; color: @bg_window; font-weight: 700;
+}
+window.halo button.danger:hover { background-color: shade(@danger, 1.08); }
+window.halo button.danger label { color: @bg_window; }
+
+window.halo button.link-button,
+window.halo-dialog button.link-button {
+  background: transparent; border: none; padding: 0 2px; color: @accent; min-height: 0;
+}
+window.halo button.link-button label { color: @accent; }
+window.halo button.link-button:hover label { text-decoration: underline; }
+
+window.halo button.round,
+window.halo button.play {
+  border-radius: 999px;
+  min-width: 34px; min-height: 34px; padding: 0;
+}
+window.halo button.play {
+  background: transparent;
+  border: 1.5px solid alpha(@text_primary, 0.55);
+  color: @text_primary;
+}
+window.halo button.play:hover { background: @accent; border-color: @accent; color: white; }
+window.halo button.play.scanning { border-color: @accent; color: @accent; }
+
+window.halo button.icon-button { padding: 4px; min-width: 28px; min-height: 28px; border-radius: 8px; }
+
+/* split button for Shred… with a dropdown */
+.split-danger > button.danger:first-child { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.split-danger > menubutton > button.danger,
+.split-danger > button.danger.dropdown {
+  border-top-left-radius: 0; border-bottom-left-radius: 0;
+  border-left: 1px solid shade(@danger, 0.78);
+  padding: 6px 8px;
+}
+window.halo menubutton > button { padding: 6px 8px; }
+
+/* segmented control */
+.segmented {
+  background: @bg_window;
+  border: 1px solid @line;
+  border-radius: 10px;
+  padding: 3px;
+}
+window.halo .segmented > button,
+window.halo-dialog .segmented > button {
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  padding: 4px 12px;
+  min-height: 20px;
+  color: @text_secondary;
+  font-weight: 500;
+}
+window.halo .segmented > button:hover { color: @text_primary; background: alpha(@text_primary, 0.05); }
+window.halo .segmented > button:checked,
+window.halo-dialog .segmented > button:checked {
+  background: @bg_raised;
+  color: @text_primary;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Check boxes, switches, radios ──────────────────────────────────────── */
+window.halo check,
+window.halo-dialog check {
+  min-width: 16px; min-height: 16px;
+  border-radius: 5px;
+  border: 1.5px solid alpha(@text_secondary, 0.7);
+  background: transparent;
+  -gtk-icon-source: none;
+  transition: all 150ms ease-out;
+}
+window.halo check:hover { border-color: @text_primary; }
+window.halo check:checked,
+window.halo-dialog check:checked {
+  background: @accent;
+  border-color: @accent;
+  color: white;
+  -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+}
+window.halo checkbutton.implied check:checked { background: alpha(@accent, 0.4); border-color: alpha(@accent, 0.4); }
+window.halo-dialog checkbutton.danger-check check:checked { background: @danger; border-color: @danger; }
+window.halo-dialog radio {
+  min-width: 16px; min-height: 16px; border-radius: 99px;
+  border: 1.5px solid alpha(@text_secondary, 0.7); background: transparent; -gtk-icon-source: none;
+}
+window.halo-dialog radio:checked { border: 5px solid @accent; background: white; }
+window.halo-dialog checkbutton label, window.halo checkbutton label { color: @text_primary; }
+
+window.halo switch,
+window.halo-dialog switch {
+  background: @line; border: none; border-radius: 99px; min-width: 40px; min-height: 22px;
+}
+window.halo-dialog switch:checked, window.halo switch:checked { background: @accent; }
+window.halo-dialog switch slider, window.halo switch slider {
+  background: @text_primary; border-radius: 99px; min-width: 18px; min-height: 18px; margin: 2px;
+  box-shadow: none; border: none;
+}
+
+/* ── Entries, spin buttons, dropdowns ───────────────────────────────────── */
+window.halo-dialog entry, window.halo entry, window.halo-dialog spinbutton {
+  background: @bg_window; color: @text_primary; border: 1px solid @line; border-radius: 9px;
+  box-shadow: none; padding: 4px 8px; min-height: 26px;
+}
+window.halo-dialog entry:focus-within, window.halo-dialog spinbutton:focus-within { border-color: @accent; }
+window.halo-dialog spinbutton > button { border: none; background: transparent; }
+window.halo-dialog dropdown > button { min-height: 22px; }
+window.halo-dialog scale trough { background: @line; border-radius: 99px; min-height: 4px; }
+window.halo-dialog scale highlight { background: @accent; border-radius: 99px; }
+window.halo-dialog scale slider {
+  background: @text_primary; border-radius: 99px; min-width: 16px; min-height: 16px; border: none; margin: -6px;
+}
+
+/* ── Scrollbars ─────────────────────────────────────────────────────────── */
+window.halo scrollbar, window.halo-dialog scrollbar { background: transparent; border: none; }
+window.halo scrollbar slider, window.halo-dialog scrollbar slider {
+  background: alpha(@text_secondary, 0.25); border-radius: 99px; min-width: 6px; min-height: 6px; border: none;
+}
+window.halo scrollbar slider:hover { background: alpha(@text_secondary, 0.45); }
+window.halo scrolledwindow undershoot, window.halo scrolledwindow overshoot { background: none; }
+
+/* ── Sidebar ────────────────────────────────────────────────────────────── */
+.sidebar {
+  background-color: @bg_sidebar;
+  border-right: 1px solid @line;
+}
+.sidebar .section-head { padding: 22px 22px 10px 22px; }
+.sidebar .section-head label.section { margin-right: 10px; }
+.sidebar .section-rule { background: @line; min-height: 1px; margin-top: 1px; }
+
+.drive-row {
+  margin: 0 12px 6px 12px;
+  padding: 12px 12px 12px 12px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: background-color 150ms ease-out, border-color 150ms ease-out;
+}
+.drive-row:hover { background: alpha(@bg_raised, 0.6); }
+.drive-row.active { background: @bg_raised; border-color: alpha(@accent, 0.55); }
+.drive-row .drive-name { font-size: 15px; font-weight: 600; }
+.drive-row .drive-free { font-size: 13px; color: @text_secondary; }
+.drive-row image.drive-icon { color: @text_secondary; }
+.drive-row.active image.drive-icon { color: @accent; }
+
+.badge {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+  padding: 1px 6px; border-radius: 6px;
+  background: alpha(@text_secondary, 0.14); color: @text_secondary;
+}
+.badge.ssd { background: alpha(@accent, 0.16); color: @accent; }
+.badge.hdd { background: alpha(@success, 0.14); color: @success; }
+.badge.dry { background: alpha(@warning, 0.16); color: @warning; }
+
+progressbar.usage trough {
+  margin: 0; min-width: 0;
+  min-height: 5px; border-radius: 99px; background: alpha(@line, 0.9); border: none;
+}
+progressbar.usage progress {
+  margin: 0; min-width: 0;
+  min-height: 5px; border-radius: 99px; background: @accent; border: none;
+}
+progressbar.usage.full progress { background: @warning; }
+progressbar.thin trough { margin: 0; min-width: 0; min-height: 4px; border-radius: 99px; background: @line; border: none; }
+progressbar.thin progress { margin: 0; min-width: 0; min-height: 4px; border-radius: 99px; background: @accent; border: none; }
+progressbar.thin.danger progress { background: @danger; }
+progressbar.thin.success progress { background: @success; }
+
+.nav-row {
+  margin: 1px 12px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: background-color 150ms ease-out;
+}
+.nav-row:hover { background: alpha(@bg_raised, 0.7); }
+.nav-row.active { background: @bg_raised; }
+.nav-row label.nav-name { font-size: 15px; }
+.nav-row label.nav-meta { font-size: 12px; color: @text_muted; }
+.nav-row .folder-tile {
+  min-width: 34px; min-height: 30px;
+  border-radius: 8px;
+  border: 1px solid alpha(@text_secondary, 0.35);
+  background: alpha(@text_secondary, 0.06);
+}
+.nav-row .folder-tile image { color: @text_secondary; }
+.nav-row.active .folder-tile { border-color: alpha(@accent, 0.7); background: alpha(@accent, 0.12); }
+.nav-row.active .folder-tile image { color: @accent; }
+.nav-row.removing { background: alpha(@danger, 0.10); }
+.sidebar-foot { padding: 10px 16px 14px 16px; border-top: 1px solid alpha(@line, 0.6); }
+.sidebar-foot button { color: @text_secondary; }
+
+/* icon rail below 1100 px */
+.sidebar.rail .drive-row, .sidebar.rail .nav-row { margin-left: 8px; margin-right: 8px; padding-left: 8px; padding-right: 8px; }
+
+/* ── Centre ─────────────────────────────────────────────────────────────── */
+.centre { background-color: @bg_window; }
+.centre-top { padding: 14px 20px 6px 20px; }
+window.halo .breadcrumb button {
+  padding: 2px 6px; min-height: 0; background: transparent; border: none; border-radius: 6px;
+  color: @text_secondary; font-size: 15px;
+}
+window.halo .breadcrumb button:hover { background: alpha(@text_primary, 0.06); color: @text_primary; }
+window.halo .breadcrumb button.current { color: @text_primary; font-weight: 600; }
+.breadcrumb label.crumb-sep { color: @text_muted; margin: 0 1px; }
+
+.legend { padding: 0 20px 2px 20px; }
+.legend-chip { padding: 2px 8px; border-radius: 99px; }
+.legend-chip label { font-size: 12px; color: @text_secondary; }
+.legend-chip image { -gtk-icon-size: 13px; }
+.kind-0 { color: @kind_0; } .kind-1 { color: @kind_1; } .kind-2 { color: @kind_2; }
+.kind-3 { color: @kind_3; } .kind-4 { color: @kind_4; } .kind-5 { color: @kind_5; }
+.kind-6 { color: @kind_6; } .kind-folder { color: @text_secondary; } .kind-link { color: @text_muted; }
+.kind-other-drive { color: @text_muted; }
+
+.centre-foot { padding: 8px 20px 16px 20px; }
+.centre-foot label { font-size: 13px; color: @text_muted; }
+.counters label.counter { font-size: 13px; color: @text_secondary; }
+.counters label.counter-value { font-size: 15px; font-weight: 600; color: @text_primary; font-feature-settings: "tnum"; }
+.counters .pulse-dot { min-width: 8px; min-height: 8px; border-radius: 99px; background: @accent; }
+
+.empty-state label.empty-title { font-size: 20px; font-weight: 600; }
+.empty-state label.empty-body { font-size: 15px; color: @text_secondary; }
+
+/* banner cards over the chart */
+.banner {
+  background: @bg_panel;
+  border: 1px solid @line;
+  border-radius: 12px;
+  padding: 10px 12px 10px 14px;
+  margin: 0 20px 6px 20px;
+}
+.banner.warning { border-color: alpha(@warning, 0.45); background: mix(@bg_panel, @warning, 0.06); }
+.banner.warning image.banner-icon { color: @warning; }
+.banner image.banner-icon { color: @accent; }
+.banner label.banner-title { font-weight: 600; }
+.banner label.banner-body { font-size: 13px; color: @text_secondary; }
+
+/* ── Right panel ────────────────────────────────────────────────────────── */
+.panel {
+  background-color: @bg_panel;
+  border-left: 1px solid @line;
+}
+.panel-head { padding: 18px 20px 14px 20px; border-bottom: 1px solid @line; }
+.panel-head image.panel-icon { color: @text_secondary; }
+.panel-head label.panel-title { font-size: 20px; font-weight: 500; }
+.panel-head label.panel-size { font-size: 20px; font-weight: 500; font-feature-settings: "tnum"; }
+.panel-tabs { padding: 12px 16px 8px 16px; }
+.panel-tabs .segmented > button { padding: 5px 0; }
+.list-caption { padding: 0 20px 4px 20px; }
+.list-caption label { font-size: 12px; color: @text_muted; letter-spacing: 0.04em; }
+
+listview.halo-list, listview.halo-list > row { background: transparent; color: @text_primary; }
+listview.halo-list > row { padding: 0; border-radius: 0; }
+listview.halo-list > row:hover { background: alpha(@bg_raised, 0.55); }
+listview.halo-list > row:selected { background: transparent; }
+listview.halo-list > row:focus-visible { outline: 2px solid alpha(@accent, 0.7); outline-offset: -2px; }
+.file-row { min-height: 52px; padding: 0 14px 0 14px; border-bottom: 1px solid alpha(@line, 0.7); }
+.file-row.ticked { background: alpha(@accent, 0.09); }
+.file-row.ticked label.row-name { font-weight: 600; }
+.file-row label.row-name { font-size: 15px; }
+.file-row label.row-sub { font-size: 12px; color: @text_muted; }
+.file-row label.size { font-size: 15px; color: @text_primary; }
+.file-row .kind-tile {
+  min-width: 34px; min-height: 30px; border-radius: 8px;
+  background: alpha(@text_secondary, 0.07);
+}
+.file-row .kind-tile.folder { background: alpha(@accent, 0.14); }
+.file-row .kind-tile.folder image { color: @accent; }
+.file-row.protected label.row-name { color: @text_secondary; }
+treeexpander > expander, treeexpander expander {
+  min-width: 16px; min-height: 16px; color: @text_secondary;
+}
+
+.panel-foot { border-top: 1px solid @line; }
+.selected-strip { padding: 10px 20px; background: alpha(@bg_raised, 0.65); }
+.selected-strip label { font-size: 15px; font-feature-settings: "tnum"; }
+.drop-zone {
+  margin: 14px 20px 10px 20px;
+  padding: 16px;
+  border: 1.5px dashed alpha(@text_secondary, 0.45);
+  border-radius: 14px;
+  transition: background-color 150ms ease-out, border-color 150ms ease-out;
+}
+.drop-zone label.drop-title { font-size: 17px; color: @text_secondary; }
+.drop-zone label.drop-sub { font-size: 13px; color: @text_muted; }
+.drop-zone.hover { border-color: @accent; background: alpha(@accent, 0.08); }
+.drop-zone.hover label.drop-title { color: @text_primary; }
+.action-row { padding: 4px 20px 18px 20px; }
+.action-row button { min-height: 26px; }
+
+/* ── Sheets (in-window dialogs) ─────────────────────────────────────────── */
+.backdrop { background-color: rgba(0, 0, 0, 0.45); }
+.sheet-card {
+  background-color: @bg_panel;
+  border: 1px solid @line;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 24px;
+}
+.sheet-card label.sheet-title { font-size: 20px; font-weight: 600; }
+.sheet-card label.sheet-body { font-size: 15px; color: @text_secondary; }
+.sheet-card .group {
+  background: alpha(@bg_window, 0.55);
+  border: 1px solid @line;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.sheet-card .group label.group-title { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: @text_muted; }
+.sheet-card .item-line label { font-size: 14px; }
+.sheet-card .item-line label.size { color: @text_secondary; }
+.sheet-card .total-line label { font-weight: 600; }
+.amber-card {
+  background: mix(@bg_panel, @warning, 0.08);
+  border: 1px solid alpha(@warning, 0.45);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.amber-card image { color: @warning; }
+.amber-card label.amber-title { font-weight: 600; color: @warning; }
+.amber-card label.amber-body { font-size: 13px; color: @text_secondary; }
+.amber-card label.amber-item { font-size: 12px; color: @text_muted; font-family: monospace; }
+.info-card {
+  background: alpha(@bg_window, 0.55);
+  border: 1px solid @line;
+  border-radius: 14px;
+  padding: 16px;
+}
+.info-card image.info-icon { color: @accent; }
+.info-card label.info-title { font-size: 15px; font-weight: 600; }
+.info-card label.info-body { font-size: 13px; color: @text_secondary; }
+
+/* press-and-hold */
+.hold-button {
+  border-radius: 10px;
+  border: 1.5px solid @danger;
+  background: alpha(@danger, 0.10);
+  min-height: 40px;
+}
+.hold-button:focus-visible { outline: 2px solid @danger; outline-offset: 2px; }
+.hold-button:hover { background: alpha(@danger, 0.16); }
+.hold-button label { color: @danger; font-weight: 700; padding: 0 16px; }
+.hold-button.filling label { color: @text_primary; }
+.hold-button:disabled { opacity: 0.4; }
+
+/* progress list */
+.progress-row { padding: 6px 2px; }
+.progress-row label.row-name { font-size: 14px; }
+.progress-row label.row-sub { font-size: 12px; color: @text_muted; }
+.progress-row label.status-ok { color: @success; font-size: 12px; }
+.progress-row label.status-bad { color: @danger; font-size: 12px; }
+.progress-row label.status-warn { color: @warning; font-size: 12px; }
+
+/* toast */
+.toast {
+  background: @bg_raised;
+  border: 1px solid @line;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* ── Preferences & help windows ─────────────────────────────────────────── */
+.pref-page { padding: 24px 28px; }
+.pref-group {
+  background: @bg_panel; border: 1px solid @line; border-radius: 14px; padding: 4px 0;
+}
+.pref-row { padding: 10px 16px; border-bottom: 1px solid alpha(@line, 0.6); }
+.pref-row:last-child { border-bottom: none; }
+.pref-row label.pref-title { font-size: 15px; }
+.pref-row label.pref-sub { font-size: 12px; color: @text_muted; }
+.help-nav { background: @bg_sidebar; border-right: 1px solid @line; padding: 14px 8px; }
+window.halo-dialog .help-nav button { background: transparent; border: none; color: @text_secondary; padding: 8px 12px; border-radius: 9px; }
+window.halo-dialog .help-nav button:hover { background: alpha(@bg_raised, 0.7); color: @text_primary; }
+window.halo-dialog .help-nav button.active { background: @bg_raised; color: @text_primary; }
+.help-page { padding: 28px 36px; }
+.help-page label.h1 { font-size: 26px; font-weight: 700; }
+.help-page label.h2 { font-size: 19px; font-weight: 600; margin-top: 10px; }
+.help-page label.h3 { font-size: 15px; font-weight: 600; margin-top: 6px; }
+.help-page label.p { font-size: 15px; color: @text_secondary; }
+.help-page .code {
+  background: @bg_panel; border: 1px solid @line; border-radius: 10px; padding: 10px 12px;
+}
+.help-page .code label { font-family: monospace; font-size: 12px; color: @text_primary; }
+.help-page .table {
+  background: @bg_panel; border: 1px solid @line; border-radius: 10px; padding: 12px 14px;
+}
+.help-page .table label { font-size: 13px; color: @text_secondary; }
+.help-foot label { font-size: 12px; color: @text_muted; }
