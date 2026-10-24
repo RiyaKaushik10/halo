@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: MIT -->
+<!-- Copyright (c) 2026 Riya K -->
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+  "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+  <vendor>Halo</vendor>
+  <vendor_url>https://github.com/RiyaKaushik10/halo</vendor_url>
+  <icon_name>io.github.RiyaKaushik10.Halo</icon_name>
+
+  <action id="io.github.riyakaushik10.halo.scan">
+    <description>Scan folders you can't read</description>
+    <message>Authentication is required for Halo to measure folders your account can't open</message>
+    <defaults>
+      <allow_any>auth_admin_keep</allow_any>
+      <allow_inactive>auth_admin_keep</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/libexec/halo/halo-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.argv1">scan</annotate>
+  </action>
+
+  <action id="io.github.riyakaushik10.halo.shred">
+    <description>Shred files owned by another user</description>
+    <message>Authentication is required for Halo to shred files your account doesn't own</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/libexec/halo/halo-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.argv1">shred</annotate>
+  </action>
+</policyconfig>

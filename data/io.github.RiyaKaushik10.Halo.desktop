@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Halo
+GenericName=Disk Space Analyzer
+Comment=See where your space went, then securely shred what you don't need
+Exec=halo %F
+Icon=io.github.RiyaKaushik10.Halo
+Terminal=false
+Categories=Utility;GTK;
+Keywords=disk;space;usage;analyzer;sunburst;shred;wipe;secure;delete;
+StartupNotify=true
+StartupWMClass=halo
+MimeType=inode/directory;

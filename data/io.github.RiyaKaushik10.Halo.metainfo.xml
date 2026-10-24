@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: MIT -->
+<!-- Copyright (c) 2026 Riya K -->
+<component type="desktop-application">
+  <id>io.github.RiyaKaushik10.Halo</id>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  <name>Halo</name>
+  <summary>Disk space analyzer and secure file shredder</summary>
+  <developer id="io.github.riyakaushik10">
+    <name>Riya K</name>
+  </developer>
+  <description>
+    <p>Halo shows what is filling your disk as an interactive sunburst, and lets you securely shred
+      what you find — including the thumbnails and recent-file entries your desktop leaves behind.</p>
+    <ul>
+      <li>Live sunburst that refines while it scans, with Outline, Biggest and Oldest lists</li>
+      <li>DoD 5220.22-M 3-pass method or a single random pass, with verification</li>
+      <li>Removes thumbnails, recent-file entries and copies in the Trash</li>
+      <li>Honest warnings for SSDs, copy-on-write filesystems, snapshots and sync folders</li>
+      <li>Works entirely offline: no account, no tracking, no internet</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">io.github.RiyaKaushik10.Halo.desktop</launchable>
+  <url type="homepage">https://github.com/RiyaKaushik10/halo</url>
+  <url type="bugtracker">https://github.com/RiyaKaushik10/halo/issues</url>
+  <url type="vcs-browser">https://github.com/RiyaKaushik10/halo</url>
+  <screenshots>
+    <screenshot type="default">
+      <caption>The sunburst with the list panel</caption>
+      <image>https://raw.githubusercontent.com/RiyaKaushik10/halo/main/data/screenshots/main.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="1.0.1" date="2026-10-24">
+      <description><p>Fixes unclickable dialog buttons, press-and-hold, and a clipped menu row.</p></description>
+    </release>
+    <release version="1.0.0" date="2026-10-24">
+      <description><p>First release.</p></description>
+    </release>
+  </releases>
+</component>
