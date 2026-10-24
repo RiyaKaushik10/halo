@@ -1,0 +1,8 @@
+[Nemo Action]
+Name=Shred with Halo…
+Comment=Review and securely shred the selected items (opens Halo's confirmation sheet)
+Exec=halo --shred %F
+Icon-Name=halo-shred-symbolic
+Selection=notnone
+Extensions=any;
+Dependencies=halo;

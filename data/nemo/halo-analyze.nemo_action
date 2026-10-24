@@ -1,0 +1,8 @@
+[Nemo Action]
+Name=Analyze Disk Usage with Halo
+Comment=See what is filling this folder
+Exec=halo %F
+Icon-Name=io.github.RiyaKaushik10.Halo-symbolic
+Selection=s
+Extensions=dir;
+Dependencies=halo;
