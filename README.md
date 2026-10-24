@@ -4,9 +4,9 @@
 
 **See where your space went in seconds, then make sensitive files truly gone.**
 
-[![Total downloads](https://img.shields.io/github/downloads/RiyaKaushik10/halo/total?style=for-the-badge&label=Downloads&color=4F8CFF&labelColor=18203A&logo=linuxmint&logoColor=white)](https://github.com/RiyaKaushik10/halo/releases)
+[![Total downloads](https://img.shields.io/github/downloads/RiyaKaushik10/halo/total?cacheSeconds=1800&style=for-the-badge&label=Downloads&color=4F8CFF&labelColor=18203A&logo=linuxmint&logoColor=white)](https://github.com/RiyaKaushik10/halo/releases)
 [![Latest release](https://img.shields.io/github/v/release/RiyaKaushik10/halo?style=for-the-badge&label=Latest&color=3DDC97&labelColor=18203A)](https://github.com/RiyaKaushik10/halo/releases/latest)
-[![Downloads of the latest release](https://img.shields.io/github/downloads/RiyaKaushik10/halo/latest/total?style=for-the-badge&label=This%20release&color=9B6BFF&labelColor=18203A)](https://github.com/RiyaKaushik10/halo/releases/latest)
+[![Downloads of the latest release](https://img.shields.io/github/downloads/RiyaKaushik10/halo/latest/total?cacheSeconds=1800&style=for-the-badge&label=This%20release&color=9B6BFF&labelColor=18203A)](https://github.com/RiyaKaushik10/halo/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-FFC93D?style=for-the-badge&labelColor=18203A)](LICENSE)
 
 **[⬇ Download Halo for Linux Mint (.deb)](https://github.com/RiyaKaushik10/halo/releases/latest)**
